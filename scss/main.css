@@ -249,7 +249,7 @@ ul {
 .modal__content {
   margin: 20px auto;
   max-width: 450px;
-  padding: 20px;
+  padding: 15px;
   border: 1px solid rgba(209, 209, 209, 0.8078431373);
   width: 90%;
   background-color: #ffffff;
@@ -281,7 +281,7 @@ ul {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding-top: 20px;
+  padding-top: 10px;
   gap: 5px;
 }
 .form__content,
@@ -418,11 +418,16 @@ ul {
 @media screen and (min-width: 900px) {
   .modal__content {
     margin: 80px auto;
+    padding: 20px;
   }
   .inpt,
   .select,
   .textarea,
   .textarea-height {
     padding: 10px;
+  }
+  .form,
+  .form-login {
+    padding-top: 20px;
   }
 }/*# sourceMappingURL=main.css.map */
