@@ -102,6 +102,20 @@ class Form {
         });
         visit.render(filtered);
       }
+      if (formData.search && formData.urgency === "Urgency" && (formData.status === "done" || formData.status === "open")) {
+        const filtered = users.filter((item) => {
+          const today = new Date();
+          const value = item.date.split(".").reverse().join(".");
+          const dateVisit = new Date(value);
+          if (formData.status === "done" && today > dateVisit && item.doctor.toLowerCase().includes(formData.search.toLowerCase())) {
+            return item;
+          }
+          if (formData.status === "open" && today < dateVisit && item.doctor.toLowerCase().includes(formData.search.toLowerCase())) {
+            return item;
+          }
+        });
+        visit.render(filtered);
+      }
       if (
         !formData.search &&
         formData.status === "Status" &&
@@ -119,7 +133,6 @@ class Form {
           const filtered = users.filter((item) => item.urgency === "Low");
           this.filtered = filtered;
         }
-        console.log(this.filtered);
         visit.render(this.filtered);
       }
       if (
@@ -127,36 +140,81 @@ class Form {
         formData.status === "Status" &&
         (formData.urgency === "Normal" || formData.urgency === "High" || formData.urgency === "Low")
       ) {
-        const filter = users.filter((item) => {
-          if (
-            formData.urgency === "Normal" &&
-            (item.doctor.toLowerCase().includes(formData.search.toLowerCase()) ||
-              item.description.toLowerCase().includes(formData.search.toLowerCase()) ||
-              item.name.toLowerCase().includes(formData.search.toLowerCase()) ||
-              item.goalVisit.toLowerCase().includes(formData.search.toLowerCase()))
-          ) {
+        const filter = users.filter((item) => item.doctor.toLowerCase().includes(formData.search.toLowerCase()));
+        if (formData.urgency === "Normal") {
+          const filtered = filter.filter((item) => item.urgency === "Normal");
+          this.filtered = filtered;
+        }
+        if (formData.urgency === "High") {
+          const filtered = filter.filter((item) => item.urgency === "High");
+          this.filtered = filtered;
+        }
+        if (formData.urgency === "Low") {
+          const filtered = filter.filter((item) => item.urgency === "Low");
+          this.filtered = filtered;
+        }
+        visit.render(this.filtered);
+      }
+      if (
+        formData.search &&
+        (formData.urgency === "Normal" || formData.urgency === "High" || formData.urgency === "Low") &&
+        (formData.status === "done" || formData.status === "open")
+      ) {
+        const filterDoctor = users.filter((item) => item.doctor.toLowerCase().includes(formData.search.toLowerCase()));
+        const filterDate = filterDoctor.filter((item) => {
+          const today = new Date();
+          const value = item.date.split(".").reverse().join(".");
+          const dateVisit = new Date(value);
+          if (formData.status === "done" && today > dateVisit) {
             return item;
           }
-          if (
-            formData.urgency === "High" &&
-            (item.doctor.toLowerCase().includes(formData.search.toLowerCase()) ||
-              item.description.toLowerCase().includes(formData.search.toLowerCase()) ||
-              item.name.toLowerCase().includes(formData.search.toLowerCase()) ||
-              item.goalVisit.toLowerCase().includes(formData.search.toLowerCase()))
-          ) {
-            return item;
-          }
-          if (
-            formData.urgency === "Low" &&
-            (item.doctor.toLowerCase().includes(formData.search.toLowerCase()) ||
-              item.description.toLowerCase().includes(formData.search.toLowerCase()) ||
-              item.name.toLowerCase().includes(formData.search.toLowerCase()) ||
-              item.goalVisit.toLowerCase().includes(formData.search.toLowerCase()))
-          ) {
+          if (formData.status === "open" && today < dateVisit) {
             return item;
           }
         });
-        visit.render(filter);
+        if (formData.urgency === "Normal") {
+          const filtered = filterDate.filter((item) => item.urgency === "Normal");
+          this.filtered = filtered;
+        }
+        if (formData.urgency === "High") {
+          const filtered = filterDate.filter((item) => item.urgency === "High");
+          this.filtered = filtered;
+        }
+        if (formData.urgency === "Low") {
+          const filtered = filterDate.filter((item) => item.urgency === "Low");
+          this.filtered = filtered;
+        }
+        visit.render(this.filtered);
+      }
+      if (
+        !formData.search &&
+        (formData.urgency === "Normal" || formData.urgency === "High" || formData.urgency === "Low") &&
+        (formData.status === "done" || formData.status === "open")
+      ) {
+        if (formData.urgency === "Normal") {
+          const filtered = users.filter((item) => item.urgency === "Normal");
+          this.filtered = filtered;
+        }
+        if (formData.urgency === "High") {
+          const filtered = users.filter((item) => item.urgency === "High");
+          this.filtered = filtered;
+        }
+        if (formData.urgency === "Low") {
+          const filtered = users.filter((item) => item.urgency === "Low");
+          this.filtered = filtered;
+        }
+        const filterResult = this.filtered.filter((item) => {
+          const today = new Date();
+          const value = item.date.split(".").reverse().join(".");
+          const dateVisit = new Date(value);
+          if (formData.status === "done" && today > dateVisit) {
+            return item;
+          }
+          if (formData.status === "open" && today < dateVisit) {
+            return item;
+          }
+        });
+        visit.render(filterResult);
       }
     } catch (error) {
       console.error(error);
