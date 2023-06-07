@@ -108,7 +108,7 @@ ul {
 .textarea,
 .textarea-height {
   border: 1px solid $border-color;
-  padding: 10px;
+  padding: 5px;
   border-radius: 3px;
   width: 100%;
   cursor: pointer;
@@ -177,7 +177,6 @@ ul {
   display: flex;
   justify-content: end;
   color: $main-color;
-  margin-bottom: 15px;
   .fa-solid {
     font-size: 24px;
     &:hover,
@@ -289,5 +288,11 @@ ul {
     &__content {
       margin: 80px auto;
     }
+  }
+  .inpt,
+  .select,
+  .textarea,
+  .textarea-height {
+    padding: 10px;
   }
 }

@@ -157,7 +157,7 @@ ul {
 .textarea,
 .textarea-height {
   border: 1px solid rgba(209, 209, 209, 0.8078431373);
-  padding: 10px;
+  padding: 5px;
   border-radius: 3px;
   width: 100%;
   cursor: pointer;
@@ -264,7 +264,6 @@ ul {
       -ms-flex-pack: end;
           justify-content: end;
   color: #95c8db;
-  margin-bottom: 15px;
 }
 .close .fa-solid {
   font-size: 24px;
@@ -419,5 +418,11 @@ ul {
 @media screen and (min-width: 900px) {
   .modal__content {
     margin: 80px auto;
+  }
+  .inpt,
+  .select,
+  .textarea,
+  .textarea-height {
+    padding: 10px;
   }
 }/*# sourceMappingURL=main.css.map */
